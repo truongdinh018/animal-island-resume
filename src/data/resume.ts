@@ -7,6 +7,8 @@ export const profile = {
   email: 'truongdinh@xboss.com',
   github: 'https://github.com/truongdinh018',
   githubLabel: 'truongdinh018',
+  /** Replace `public/avatar.jpg` with your own photo anytime. */
+  avatar: `${import.meta.env.BASE_URL}avatar.jpg`,
   summary:
     'Build ERP and AI systems on Odoo — RAG chat, document parsing, and agent tooling that make product teams ship faster.',
   tagline: 'Welcome to my island! 🏝️',

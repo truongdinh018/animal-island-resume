@@ -20,10 +20,19 @@ import {
 } from './data/resume';
 import './App.css';
 
-function Hero() {
+function Sidebar() {
   return (
-    <header className="hero">
-      <Card color="app-teal" pattern="app-teal" className="hero-card">
+    <aside className="sidebar">
+      <Card color="app-teal" pattern="app-teal" className="sidebar-card">
+        <div className="avatar-wrap">
+          <img
+            className="avatar"
+            src={profile.avatar}
+            alt={`${profile.name} avatar`}
+            width={160}
+            height={160}
+          />
+        </div>
         <p className="eyebrow">{profile.tagline}</p>
         <h1 className="hero-name">{profile.name}</h1>
         <p className="hero-title">{profile.title}</p>
@@ -42,6 +51,7 @@ function Hero() {
           <Button
             type="primary"
             size="large"
+            block
             onClick={() => window.open(profile.github, '_blank')}
           >
             GitHub
@@ -49,6 +59,7 @@ function Hero() {
           <Button
             type="default"
             size="large"
+            block
             onClick={() => {
               window.location.href = `mailto:${profile.email}`;
             }}
@@ -57,7 +68,7 @@ function Hero() {
           </Button>
         </div>
       </Card>
-    </header>
+    </aside>
   );
 }
 
@@ -204,8 +215,8 @@ function App() {
 
   return (
     <div className="page">
-      <div className="page-inner">
-        <Hero />
+      <div className="page-inner layout">
+        <Sidebar />
         <main className="main">
           <Tabs items={tabs} defaultActiveKey="about" leafAnimation shadow />
         </main>
