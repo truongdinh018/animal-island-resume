@@ -2,6 +2,7 @@ import {
   Button,
   Card,
   Collapse,
+  Cursor,
   Divider,
   Footer,
   Icon,
@@ -104,9 +105,11 @@ function AboutPanel() {
   return (
     <div className="panel-stack">
       <Card color="app-yellow" pattern="default" className="story-card">
-        <Title color="app-yellow" size="large">
-          About me
-        </Title>
+        <div className="section-title">
+          <Title color="app-yellow" size="middle">
+            About me
+          </Title>
+        </div>
         <p className="body-text lead">
           I design and ship Odoo modules and AI product surfaces — from RAG chat
           with citations to document ingest and channel bots.
@@ -142,15 +145,15 @@ function ExperiencePanel() {
     <div className="panel-stack">
       {experiences.map((job) => (
         <Card key={job.company} color={job.color} pattern={job.color} className="job-card">
+          <div className="section-title">
+            <Title color={job.color} size="middle">
+              {job.role}
+            </Title>
+          </div>
           <div className="job-head">
             <div className="job-head-left">
-              <Icon name="icon-diy" size={36} />
-              <div>
-                <Title color={job.color} size="middle">
-                  {job.role}
-                </Title>
-                <p className="job-company">{job.company}</p>
-              </div>
+              <Icon name="icon-diy" size={32} />
+              <p className="job-company">{job.company}</p>
             </div>
             <Tag color={job.color} variant="solid">
               {job.period}
@@ -171,9 +174,11 @@ function SkillsPanel() {
   return (
     <div className="panel-stack">
       <Card color="app-green" pattern="none" className="skills-card">
-        <Title color="app-green" size="large">
-          Skill orchard
-        </Title>
+        <div className="section-title">
+          <Title color="app-green" size="middle">
+            Skills
+          </Title>
+        </div>
         <p className="body-text soft">How I spend most of my builder hours.</p>
         <div className="skills-grid">
           {skills.map((skill) => (
@@ -203,9 +208,11 @@ function ProjectsPanel() {
           hoverable
           className="project-card"
         >
-          <div className="project-top">
-            <Icon name={projectIcons[index % projectIcons.length]} size={42} bounce />
-            <Title color={project.color} size="middle">
+          <div className="project-icon">
+            <Icon name={projectIcons[index % projectIcons.length]} size={40} bounce />
+          </div>
+          <div className="section-title">
+            <Title color={project.color} size="small">
               {project.name}
             </Title>
           </div>
@@ -228,12 +235,14 @@ function EducationPanel() {
     <div className="panel-stack">
       {education.map((item) => (
         <Card key={item.school} color="app-blue" pattern="app-blue">
+          <div className="section-title">
+            <Title color="app-blue" size="middle">
+              {item.school}
+            </Title>
+          </div>
           <div className="job-head-left">
-            <Icon name="icon-critterpedia" size={36} />
+            <Icon name="icon-critterpedia" size={32} />
             <div>
-              <Title color="app-blue" size="middle">
-                {item.school}
-              </Title>
               <p className="body-text">{item.degree}</p>
               <Tag color="app-blue" variant="dashed">
                 {item.period}
@@ -244,9 +253,11 @@ function EducationPanel() {
       ))}
       <Divider />
       <Card color="warm-peach-pink" pattern="warm-peach-pink">
-        <Title color="warm-peach-pink" size="middle">
-          Ask me anything
-        </Title>
+        <div className="section-title">
+          <Title color="warm-peach-pink" size="middle">
+            FAQ
+          </Title>
+        </div>
         <div className="faq-stack">
           {contactFaq.map((item) => (
             <Collapse
@@ -271,43 +282,49 @@ function App() {
   ];
 
   return (
-    <div className="page">
-      <div className="sky" aria-hidden>
-        <span className="cloud c1" />
-        <span className="cloud c2" />
-        <span className="cloud c3" />
-        <span className="orb o1" />
-        <span className="orb o2" />
-        <span className="orb o3" />
-      </div>
-
-      <div className="page-inner">
-        <header className="top-banner fade-in">
-          <div className="banner-mark">
-            <Icon name="icon-miles" size={28} bounce />
-            <span>Island Resume</span>
-          </div>
-          <p className="banner-note">Built with animal-island-ui · Non-commercial</p>
-        </header>
-
-        <div className="layout">
-          <Sidebar />
-          <main className="main fade-in delay-1">
-            <div className="main-intro">
-              <Title color="app-teal" size="middle">
-                Explorer log
-              </Title>
-              <p className="main-intro-text">
-                Peek around the island — work, skills, and little projects.
-              </p>
-            </div>
-            <Tabs items={tabs} defaultActiveKey="about" leafAnimation shadow />
-          </main>
+    <Cursor>
+      <div className="page">
+        <div className="sky" aria-hidden>
+          <span className="cloud c1" />
+          <span className="cloud c2" />
+          <span className="cloud c3" />
+          <span className="orb o1" />
+          <span className="orb o2" />
+          <span className="orb o3" />
         </div>
-      </div>
 
-      <Footer type="sea" seamless />
-    </div>
+        <div className="page-inner">
+          <header className="top-banner fade-in">
+            <div className="banner-mark">
+              <Icon name="icon-miles" size={28} bounce />
+              <span>Island Resume</span>
+            </div>
+            <p className="banner-note">Built with animal-island-ui · Non-commercial</p>
+          </header>
+
+          <div className="layout">
+            <Sidebar />
+            <main className="main fade-in delay-1">
+              <div className="main-intro">
+                <div className="section-title">
+                  <Title color="app-teal" size="middle">
+                    Explorer log
+                  </Title>
+                </div>
+                <p className="main-intro-text">
+                  Peek around the island — work, skills, and little projects.
+                </p>
+              </div>
+              <div className="tabs-shell">
+                <Tabs items={tabs} defaultActiveKey="about" leafAnimation shadow />
+              </div>
+            </main>
+          </div>
+        </div>
+
+        <Footer type="sea" seamless />
+      </div>
+    </Cursor>
   );
 }
 

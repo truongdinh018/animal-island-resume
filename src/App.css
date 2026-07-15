@@ -198,7 +198,9 @@
 .avatar-stage {
   position: relative;
   width: fit-content;
-  margin: 4px auto 18px;
+  margin: 4px auto 18px !important;
+  left: 0;
+  right: 0;
 }
 
 .avatar-ring {
@@ -324,6 +326,7 @@
   border-radius: 28px;
   padding: 22px 18px 24px;
   min-width: 0;
+  overflow: visible;
   box-shadow:
     0 8px 0 0 rgba(189, 174, 160, 0.45),
     0 18px 40px rgba(121, 79, 39, 0.08);
@@ -332,14 +335,60 @@
 
 .main-intro {
   margin-bottom: 14px;
-  padding: 0 4px 10px;
+  padding: 0 4px 14px;
   border-bottom: 2px dashed rgba(196, 184, 158, 0.7);
 }
 
 .main-intro-text {
-  margin: 6px 0 0;
+  margin: 10px 0 0;
   color: var(--ink-soft);
   font-weight: 600;
+}
+
+/* Title ribbons need room — tabs default overflow:hidden clips / covers label */
+.section-title {
+  display: block;
+  width: fit-content;
+  max-width: 100%;
+  margin: 2px 0 14px;
+  padding: 0 10px 10px;
+  overflow: visible;
+  line-height: 1;
+}
+
+.section-title > * {
+  display: inline-block;
+  max-width: 100%;
+}
+
+.tabs-shell {
+  overflow: visible;
+}
+
+.tabs-shell > * {
+  overflow: visible !important;
+}
+
+.tabs-shell [class*='tabList'],
+.tabs-shell [class*='tabContent'],
+.tabs-shell [class*='tabContentInner'] {
+  overflow: visible !important;
+}
+
+/* Keep ribbon text above the front plate (3D transform stacking) */
+[class*='animal-ribbonText'] {
+  position: relative !important;
+  z-index: 6 !important;
+  isolation: isolate;
+}
+
+[class*='animal-ribbonFront'] {
+  z-index: 3 !important;
+  pointer-events: none;
+}
+
+.project-icon {
+  margin-bottom: 4px;
 }
 
 .panel-stack {
@@ -442,13 +491,6 @@
   padding-top: 6px;
 }
 
-.project-top {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-bottom: 4px;
-}
-
 .faq-stack {
   display: flex;
   flex-direction: column;
@@ -502,11 +544,11 @@
 @keyframes rise {
   from {
     opacity: 0;
-    transform: translateY(16px);
+    transform: translateY(12px);
   }
   to {
     opacity: 1;
-    transform: translateY(0);
+    transform: none;
   }
 }
 
@@ -527,22 +569,29 @@
     top: 20px;
   }
 
+  /* Keep profile card content centered so avatar stays centered */
   .sidebar-card {
-    text-align: left;
+    text-align: center;
   }
 
   .avatar-stage {
-    margin-left: 0;
+    margin-left: auto !important;
+    margin-right: auto !important;
   }
 
   .eyebrow,
   .hero-meta,
-  .time-chip {
-    justify-content: flex-start;
+  .time-chip,
+  .hero-actions {
+    justify-content: center;
   }
 
   .time-chip {
-    transform-origin: left center;
+    transform-origin: center;
+  }
+
+  .hero-summary {
+    text-align: center;
   }
 
   .avatar-wrap {
