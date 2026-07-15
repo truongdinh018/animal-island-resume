@@ -366,7 +366,6 @@ function AppShell() {
               </div>
               <div className="banner-right">
                 <PrefsControls />
-                <p className="banner-note">{t.brandNote}</p>
               </div>
             </header>
 

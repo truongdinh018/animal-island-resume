@@ -3,7 +3,6 @@ export type Theme = 'light' | 'dark';
 
 type Messages = {
   brand: string;
-  brandNote: string;
   online: string;
   visitGithub: string;
   print: string;
@@ -36,7 +35,6 @@ type Messages = {
 export const ui: Record<Lang, Messages> = {
   en: {
     brand: 'Island Resume',
-    brandNote: 'Built with animal-island-ui · Non-commercial',
     online: 'Online',
     visitGithub: 'Visit GitHub',
     print: 'Print',
@@ -67,7 +65,6 @@ export const ui: Record<Lang, Messages> = {
   },
   vi: {
     brand: 'Hồ sơ đảo',
-    brandNote: 'Dùng animal-island-ui · Phi thương mại',
     online: 'Trực tuyến',
     visitGithub: 'Xem GitHub',
     print: 'In',
