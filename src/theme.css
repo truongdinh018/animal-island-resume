@@ -1,4 +1,4 @@
-/* Theme tokens — light = island day; dark = night shore + parchment "islands" */
+/* Theme tokens — light = island day; dark = true night panels */
 
 :root,
 [data-theme='light'] {
@@ -20,19 +20,21 @@
 
 [data-theme='dark'] {
   --page-ink: #f2e6c9;
-  --page-ink-soft: #d4c7a8;
-  --page-muted: #a89878;
-  --page-sand: #121820;
-  --page-main: rgba(28, 35, 44, 0.96);
-  --page-banner: rgba(22, 29, 38, 0.92);
-  --page-border: #4a5a66;
-  --page-shadow: rgba(0, 0, 0, 0.55);
-  --page-sky: linear-gradient(180deg, #0b1220 0%, #152032 40%, #1c2a24 75%, #222a20 100%);
-  --pref-chip-bg: rgba(22, 29, 38, 0.95);
-  --pref-chip-border: #4a5a66;
+  --page-ink-soft: #d8cbaa;
+  --page-muted: #9aa3ab;
+  --page-sand: #0c1016;
+  --page-main: #171e27;
+  --page-banner: #141b24;
+  --page-border: #3d4b57;
+  --page-shadow: rgba(0, 0, 0, 0.6);
+  --page-sky: linear-gradient(180deg, #070b12 0%, #101822 38%, #152018 78%, #1a2118 100%);
+  --pref-chip-bg: #141b24;
+  --pref-chip-border: #3d4b57;
   --pref-chip-active: #3dd4c6;
   --chrome-ink: #f2e6c9;
-  --chrome-muted: #a8b0b8;
+  --chrome-muted: #9aa3ab;
+  --card-ink: #efe4c8;
+  --card-ink-soft: #c9b996;
 }
 
 html,
@@ -49,18 +51,18 @@ body {
 }
 
 [data-theme='dark'] .cloud {
-  background: rgba(170, 200, 230, 0.14);
+  background: rgba(150, 180, 210, 0.1);
 }
 
 [data-theme='dark'] .orb.o1 {
-  background: rgba(245, 210, 120, 0.35);
+  background: rgba(245, 210, 120, 0.3);
 }
 
 [data-theme='dark'] .orb.o2 {
-  background: rgba(61, 212, 198, 0.28);
+  background: rgba(61, 212, 198, 0.22);
 }
 
-/* Chrome: banner + main shell use night inks */
+/* Shell */
 [data-theme='dark'] .top-banner,
 [data-theme='dark'] .main {
   background: var(--page-main);
@@ -84,86 +86,169 @@ body {
 }
 
 [data-theme='dark'] .main-intro {
-  border-bottom-color: rgba(74, 90, 102, 0.9);
+  border-bottom-color: rgba(61, 75, 87, 0.95);
 }
 
-/* Content cards keep parchment look — force BROWN text (never cream-on-cream) */
+/* ---- Darken ALL library cards / patterns (true dark panels) ---- */
+[data-theme='dark'] .screen-only [class*='animal-card'] {
+  filter: none !important;
+  color: var(--card-ink) !important;
+  background: #1e2732 !important;
+  border-color: #3d4b57 !important;
+}
+
+[data-theme='dark'] .screen-only [class*='animal-pattern'] {
+  background-image:
+    radial-gradient(circle, rgba(255, 255, 255, 0.07) 1.5px, transparent 1.5px),
+    radial-gradient(circle, rgba(255, 255, 255, 0.04) 1px, transparent 1px) !important;
+  background-size: 28px 28px, 14px 14px !important;
+  background-position:
+    0 0,
+    7px 7px !important;
+  background-color: #1e2732 !important;
+  border-color: #3d4b57 !important;
+  color: var(--card-ink) !important;
+}
+
+/* Tinted dark variants keep a hint of palette */
+[data-theme='dark'] .screen-only [class*='animal-card-app-teal'],
+[data-theme='dark'] .screen-only [class*='animal-pattern-app-teal'] {
+  background-color: #163530 !important;
+  border-color: #2f8f82 !important;
+}
+
+[data-theme='dark'] .screen-only [class*='animal-card-app-yellow'],
+[data-theme='dark'] .screen-only [class*='animal-pattern-app-yellow'],
+[data-theme='dark'] .screen-only [class*='animal-pattern-default'] {
+  background-color: #2a2618 !important;
+  border-color: #8a7340 !important;
+}
+
+[data-theme='dark'] .screen-only [class*='animal-card-app-blue'],
+[data-theme='dark'] .screen-only [class*='animal-pattern-app-blue'] {
+  background-color: #1a2438 !important;
+  border-color: #5a6eb8 !important;
+}
+
+[data-theme='dark'] .screen-only [class*='animal-card-app-green'],
+[data-theme='dark'] .screen-only [class*='animal-pattern-app-green'] {
+  background-color: #1a2c1e !important;
+  border-color: #4f8a52 !important;
+}
+
+[data-theme='dark'] .screen-only [class*='animal-card-purple'],
+[data-theme='dark'] .screen-only [class*='animal-pattern-purple'] {
+  background-color: #261a36 !important;
+  border-color: #7a55b0 !important;
+}
+
+[data-theme='dark'] .screen-only [class*='animal-card-app-orange'],
+[data-theme='dark'] .screen-only [class*='animal-pattern-app-orange'],
+[data-theme='dark'] .screen-only [class*='animal-card-warm-peach'],
+[data-theme='dark'] .screen-only [class*='animal-pattern-warm-peach'] {
+  background-color: #2c1e18 !important;
+  border-color: #a06545 !important;
+}
+
+[data-theme='dark'] .screen-only [class*='animal-card-app-pink'],
+[data-theme='dark'] .screen-only [class*='animal-pattern-app-pink'] {
+  background-color: #321e28 !important;
+  border-color: #a05570 !important;
+}
+
+/* Content text on darkened cards */
 [data-theme='dark'] .sidebar .hero-name,
 [data-theme='dark'] .sidebar .eyebrow,
 [data-theme='dark'] .sidebar .job-company,
+[data-theme='dark'] .main .job-company,
 [data-theme='dark'] .main .body-text,
 [data-theme='dark'] .main .body-text.lead,
-[data-theme='dark'] .main .body-text.soft,
-[data-theme='dark'] .main .bullet-list,
-[data-theme='dark'] .main .job-company {
-  color: #5c4630 !important;
+[data-theme='dark'] .main .bullet-list {
+  color: var(--card-ink) !important;
 }
 
 [data-theme='dark'] .sidebar .hero-summary {
-  color: #4a3a28 !important;
+  color: var(--card-ink-soft) !important;
 }
 
 [data-theme='dark'] .sidebar .hero-title {
-  color: #0f6e64 !important;
+  color: #6fe0d2 !important;
 }
 
 [data-theme='dark'] .main .body-text.soft {
-  color: #7a6a52 !important;
+  color: var(--card-ink-soft) !important;
 }
 
-/* Soft night cards: slightly dim library surfaces so they sit in the scene */
-[data-theme='dark'] .sidebar [class*='animal-card'],
-[data-theme='dark'] .main [class*='animal-card'] {
-  filter: saturate(0.92) brightness(0.96);
+/* Time widget + buttons inside dark UI */
+[data-theme='dark'] .time-chip [class*='animal-'] {
+  filter: brightness(0.72) saturate(0.85);
 }
 
-[data-theme='dark'] .sidebar [class*='animal-card']:hover,
-[data-theme='dark'] .main [class*='animal-card']:hover {
-  filter: saturate(0.98) brightness(1);
+[data-theme='dark'] .sidebar button[class*='animal-'],
+[data-theme='dark'] .hero-actions button {
+  background: #24303a !important;
+  color: #efe4c8 !important;
+  border-color: #3d4b57 !important;
+  box-shadow: 0 5px 0 0 #0a1018 !important;
 }
 
+[data-theme='dark'] .sidebar button[class*='animal-']:hover,
+[data-theme='dark'] .hero-actions button:hover {
+  background: #2c3a46 !important;
+  box-shadow: 0 6px 0 0 #0a1018 !important;
+}
+
+/* Tabs */
 [data-theme='dark'] .main [class*='animal-tabs'] {
-  background: #243039;
-  border-color: #4a5a66;
+  background: #141b24;
+  border-color: #3d4b57;
 }
 
 [data-theme='dark'] .main [class*='tabList'] {
-  background: rgba(16, 22, 30, 0.65);
-  border-bottom-color: #4a5a66;
+  background: rgba(10, 14, 20, 0.75);
+  border-bottom-color: #3d4b57;
 }
 
 [data-theme='dark'] .main [class*='tabItem']:not([class*='active']) {
-  color: #e8dcc0;
+  color: #d8cbaa;
 }
 
 [data-theme='dark'] .main [class*='tabContent'],
 [data-theme='dark'] .main [class*='tabContentInner'] {
-  color: #5c4630;
+  color: var(--card-ink);
+}
+
+/* Collapse FAQ rows */
+[data-theme='dark'] .main [class*='faqCard'],
+[data-theme='dark'] .main [class*='animal-faq'] {
+  background: #1e2732 !important;
+  border-color: #3d4b57 !important;
+  color: var(--card-ink) !important;
+}
+
+[data-theme='dark'] .avatar-wrap {
+  background: linear-gradient(160deg, #2a3340, #1a3a36);
+  border-color: #3dd4c6;
+  box-shadow:
+    0 5px 0 0 #0a1018,
+    0 14px 28px rgba(0, 0, 0, 0.45);
+}
+
+[data-theme='dark'] .status-pill {
+  background: #4e9e2a;
+  border-color: #3a7a1c;
+  box-shadow: 0 2px 0 0 #1c4010;
 }
 
 [data-theme='dark'] .print-fab {
   background: #3dd4c6;
-  color: #121820;
-  border-color: #121820;
-  box-shadow: 0 5px 0 0 #060a10;
+  color: #0c1016;
+  border-color: #0c1016;
+  box-shadow: 0 5px 0 0 #04070c;
 }
 
 [data-theme='dark'] .print-fab:hover {
-  box-shadow: 0 7px 0 0 #060a10;
-}
-
-[data-theme='dark'] .avatar-wrap {
-  background: linear-gradient(160deg, #fff9e8, #d6f5ef);
-  border-color: #2eb8aa;
-  box-shadow:
-    0 5px 0 0 #3a4550,
-    0 14px 28px rgba(0, 0, 0, 0.35);
-}
-
-[data-theme='dark'] .status-pill {
-  background: #6fba2c;
-  border-color: #4e8c1c;
-  box-shadow: 0 2px 0 0 #2f5a10;
+  box-shadow: 0 7px 0 0 #04070c;
 }
 
 .prefs-bar {
@@ -216,7 +301,7 @@ body {
 }
 
 [data-theme='dark'] .pref-btn.is-active {
-  color: #121820;
+  color: #0c1016;
 }
 
 .pref-btn-icon {
