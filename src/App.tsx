@@ -13,33 +13,71 @@ import {
   Title,
   Typewriter,
 } from 'animal-island-ui';
-import {
-  contactFaq,
-  education,
-  experiences,
-  profile,
-  projects,
-  skills,
-} from './data/resume';
 import { PrintResume } from './PrintResume';
+import { PrefsProvider, usePrefs } from './prefs/PrefsContext';
 import './App.css';
 import './print.css';
 
-const focusAreas = [
-  { label: 'ERP', color: 'app-teal' as const, icon: 'icon-diy' as const },
-  { label: 'AI Agents', color: 'purple' as const, icon: 'icon-chat' as const },
-  { label: 'Knowledge', color: 'app-blue' as const, icon: 'icon-critterpedia' as const },
-  { label: 'DX', color: 'app-green' as const, icon: 'icon-design' as const },
+const focusMeta = [
+  { color: 'app-teal' as const, icon: 'icon-diy' as const },
+  { color: 'purple' as const, icon: 'icon-chat' as const },
+  { color: 'app-blue' as const, icon: 'icon-critterpedia' as const },
+  { color: 'app-green' as const, icon: 'icon-design' as const },
 ];
 
 const projectIcons = ['icon-chat', 'icon-helicopter', 'icon-map'] as const;
 
-function printResume() {
-  document.title = `${profile.name} — Resume`;
-  window.print();
+function PrefsControls() {
+  const { lang, theme, setLang, toggleTheme, t } = usePrefs();
+
+  return (
+    <div className="prefs-bar no-print" role="group" aria-label="Language and theme">
+      <div className="pref-group" role="group" aria-label="Language">
+        <button
+          type="button"
+          className={`pref-btn${lang === 'en' ? ' is-active' : ''}`}
+          onClick={() => setLang('en')}
+          aria-pressed={lang === 'en'}
+        >
+          {t.langEn}
+        </button>
+        <button
+          type="button"
+          className={`pref-btn${lang === 'vi' ? ' is-active' : ''}`}
+          onClick={() => setLang('vi')}
+          aria-pressed={lang === 'vi'}
+        >
+          {t.langVi}
+        </button>
+      </div>
+      <div className="pref-group" role="group" aria-label="Theme">
+        <button
+          type="button"
+          className={`pref-btn pref-btn-icon${theme === 'light' ? ' is-active' : ''}`}
+          onClick={() => theme !== 'light' && toggleTheme()}
+          aria-pressed={theme === 'light'}
+          title={t.themeLight}
+        >
+          ☀️
+        </button>
+        <button
+          type="button"
+          className={`pref-btn pref-btn-icon${theme === 'dark' ? ' is-active' : ''}`}
+          onClick={() => theme !== 'dark' && toggleTheme()}
+          aria-pressed={theme === 'dark'}
+          title={t.themeDark}
+        >
+          🌙
+        </button>
+      </div>
+    </div>
+  );
 }
 
 function Sidebar() {
+  const { t, resume } = usePrefs();
+  const { profile } = resume;
+
   return (
     <aside className="sidebar fade-in">
       <Card color="app-teal" pattern="app-teal" className="sidebar-card">
@@ -55,7 +93,7 @@ function Sidebar() {
               height={176}
             />
           </div>
-          <span className="status-pill">Online</span>
+          <span className="status-pill">{t.online}</span>
         </div>
 
         <p className="eyebrow">
@@ -66,7 +104,7 @@ function Sidebar() {
         <h1 className="hero-name">{profile.name}</h1>
         <p className="hero-title">{profile.title}</p>
 
-        <Typewriter speed={22}>
+        <Typewriter key={profile.summary} speed={22}>
           <p className="hero-summary">{profile.summary}</p>
         </Typewriter>
 
@@ -90,7 +128,7 @@ function Sidebar() {
             block
             onClick={() => window.open(profile.github, '_blank')}
           >
-            Visit GitHub
+            {t.visitGithub}
           </Button>
           <Button
             type="default"
@@ -109,12 +147,15 @@ function Sidebar() {
 }
 
 function AboutPanel() {
+  const { t, resume } = usePrefs();
+  const { profile } = resume;
+
   return (
     <div className="panel-stack">
       <Card color="app-yellow" pattern="default" className="story-card">
         <div className="section-title">
           <Title color="app-yellow" size="middle">
-            About me
+            {t.aboutMe}
           </Title>
         </div>
         {profile.about.map((line, index) => (
@@ -125,29 +166,34 @@ function AboutPanel() {
       </Card>
 
       <div className="focus-grid">
-        {focusAreas.map((item) => (
-          <Card
-            key={item.label}
-            color={item.color}
-            pattern={item.color}
-            hoverable
-            className="focus-card"
-          >
-            <Icon name={item.icon} size={40} bounce />
-            <Tag color={item.color} variant="solid" size="medium">
-              {item.label}
-            </Tag>
-          </Card>
-        ))}
+        {profile.focus.map((label, index) => {
+          const meta = focusMeta[index % focusMeta.length];
+          return (
+            <Card
+              key={label}
+              color={meta.color}
+              pattern={meta.color}
+              hoverable
+              className="focus-card"
+            >
+              <Icon name={meta.icon} size={40} bounce />
+              <Tag color={meta.color} variant="solid" size="medium">
+                {label}
+              </Tag>
+            </Card>
+          );
+        })}
       </div>
     </div>
   );
 }
 
 function ExperiencePanel() {
+  const { resume } = usePrefs();
+
   return (
     <div className="panel-stack">
-      {experiences.map((job) => (
+      {resume.experiences.map((job) => (
         <Card key={job.company} color={job.color} pattern={job.color} className="job-card">
           <div className="section-title">
             <Title color={job.color} size="middle">
@@ -175,17 +221,19 @@ function ExperiencePanel() {
 }
 
 function SkillsPanel() {
+  const { t, resume } = usePrefs();
+
   return (
     <div className="panel-stack">
       <Card pattern="app-green" className="skills-card">
         <div className="section-title">
           <Title color="app-green" size="middle">
-            Skills
+            {t.skillsTitle}
           </Title>
         </div>
-        <p className="body-text soft">How I spend most of my builder hours.</p>
+        <p className="body-text soft">{t.skillsBlurb}</p>
         <div className="skills-grid">
-          {skills.map((skill) => (
+          {resume.skills.map((skill) => (
             <div key={skill.name} className="skill-row">
               <div className="skill-label">
                 <Tag color={skill.color} size="small" variant="solid">
@@ -202,9 +250,11 @@ function SkillsPanel() {
 }
 
 function ProjectsPanel() {
+  const { resume } = usePrefs();
+
   return (
     <div className="projects-grid">
-      {projects.map((project, index) => (
+      {resume.projects.map((project, index) => (
         <Card
           key={project.name}
           color={project.color}
@@ -235,9 +285,11 @@ function ProjectsPanel() {
 }
 
 function EducationPanel() {
+  const { t, resume } = usePrefs();
+
   return (
     <div className="panel-stack">
-      {education.map((item) => (
+      {resume.education.map((item) => (
         <Card key={item.school} color="app-blue" pattern="app-blue">
           <div className="section-title">
             <Title color="app-blue" size="middle">
@@ -259,11 +311,11 @@ function EducationPanel() {
       <Card color="warm-peach-pink" pattern="warm-peach-pink">
         <div className="section-title">
           <Title color="warm-peach-pink" size="middle">
-            FAQ
+            {t.faq}
           </Title>
         </div>
         <div className="faq-stack">
-          {contactFaq.map((item) => (
+          {resume.contactFaq.map((item) => (
             <Collapse
               key={item.question}
               question={item.question}
@@ -276,13 +328,21 @@ function EducationPanel() {
   );
 }
 
-function App() {
+function AppShell() {
+  const { t, resume, lang } = usePrefs();
+  const { profile } = resume;
+
+  const printResume = () => {
+    document.title = `${profile.name} — Resume`;
+    window.print();
+  };
+
   const tabs = [
-    { key: 'about', label: 'About', children: <AboutPanel /> },
-    { key: 'work', label: 'Experience', children: <ExperiencePanel /> },
-    { key: 'skills', label: 'Skills', children: <SkillsPanel /> },
-    { key: 'projects', label: 'Projects', children: <ProjectsPanel /> },
-    { key: 'more', label: 'More', children: <EducationPanel /> },
+    { key: 'about', label: t.tabs.about, children: <AboutPanel /> },
+    { key: 'work', label: t.tabs.work, children: <ExperiencePanel /> },
+    { key: 'skills', label: t.tabs.skills, children: <SkillsPanel /> },
+    { key: 'projects', label: t.tabs.projects, children: <ProjectsPanel /> },
+    { key: 'more', label: t.tabs.more, children: <EducationPanel /> },
   ];
 
   return (
@@ -302,9 +362,12 @@ function App() {
             <header className="top-banner fade-in">
               <div className="banner-mark">
                 <Icon name="icon-miles" size={28} bounce />
-                <span>Island Resume</span>
+                <span>{t.brand}</span>
               </div>
-              <p className="banner-note">Built with animal-island-ui · Non-commercial</p>
+              <div className="banner-right">
+                <PrefsControls />
+                <p className="banner-note">{t.brandNote}</p>
+              </div>
             </header>
 
             <div className="layout">
@@ -313,15 +376,19 @@ function App() {
                 <div className="main-intro">
                   <div className="section-title">
                     <Title color="app-teal" size="middle">
-                      Explorer log
+                      {t.explorerLog}
                     </Title>
                   </div>
-                  <p className="main-intro-text">
-                    Peek around the island — work, skills, and little projects.
-                  </p>
+                  <p className="main-intro-text">{t.explorerBlurb}</p>
                 </div>
                 <div className="tabs-shell">
-                  <Tabs items={tabs} defaultActiveKey="about" leafAnimation shadow />
+                  <Tabs
+                    key={lang}
+                    items={tabs}
+                    defaultActiveKey="about"
+                    leafAnimation
+                    shadow
+                  />
                 </div>
               </main>
             </div>
@@ -333,19 +400,26 @@ function App() {
             type="button"
             className="print-fab no-print"
             onClick={printResume}
-            title="Print or save as PDF"
-            aria-label="Print resume"
+            title={t.printTitle}
+            aria-label={t.printTitle}
           >
             <span className="print-fab-icon" aria-hidden>
               🖨️
             </span>
-            <span className="print-fab-label">Print</span>
+            <span className="print-fab-label">{t.print}</span>
           </button>
         </div>
       </Cursor>
-      {/* Must stay outside Cursor — hiding .animal-cursor was blanking the print sheet */}
       <PrintResume />
     </>
+  );
+}
+
+function App() {
+  return (
+    <PrefsProvider>
+      <AppShell />
+    </PrefsProvider>
   );
 }
 

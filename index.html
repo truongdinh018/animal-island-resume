@@ -6,6 +6,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="Truong Dinh — personal resume (Animal Island UI)" />
     <title>Truong Dinh · Resume</title>
+    <script>
+      (function () {
+        try {
+          var theme = localStorage.getItem('island-resume-theme');
+          if (theme !== 'light' && theme !== 'dark') {
+            theme = window.matchMedia('(prefers-color-scheme: dark)').matches
+              ? 'dark'
+              : 'light';
+          }
+          document.documentElement.setAttribute('data-theme', theme);
+          var lang = localStorage.getItem('island-resume-lang');
+          if (lang === 'en' || lang === 'vi') {
+            document.documentElement.lang = lang;
+          }
+        } catch (e) {}
+      })();
+    </script>
   </head>
   <body>
     <div id="root"></div>

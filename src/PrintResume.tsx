@@ -1,7 +1,10 @@
-import { profile, experiences, skills, projects, education } from './data/resume';
+import { usePrefs } from './prefs/PrefsContext';
 
 /** Clean A4-style resume — visible only when printing / Save as PDF. */
 export function PrintResume() {
+  const { t, resume } = usePrefs();
+  const { profile, experiences, skills, projects, education } = resume;
+
   return (
     <article className="print-resume">
       <header className="print-header">
@@ -22,18 +25,18 @@ export function PrintResume() {
       </header>
 
       <section>
-        <h2>Summary</h2>
+        <h2>{t.summary}</h2>
         <p>{profile.summary}</p>
         {profile.about.map((line) => (
           <p key={line}>{line}</p>
         ))}
         <p className="print-focus">
-          <strong>Focus:</strong> {profile.focus.join(' · ')}
+          <strong>{t.focus}:</strong> {profile.focus.join(' · ')}
         </p>
       </section>
 
       <section>
-        <h2>Experience</h2>
+        <h2>{t.experience}</h2>
         {experiences.map((job) => (
           <div key={job.company} className="print-job">
             <div className="print-job-head">
@@ -52,7 +55,7 @@ export function PrintResume() {
       </section>
 
       <section>
-        <h2>Skills</h2>
+        <h2>{t.skills}</h2>
         <ul className="print-skills">
           {skills.map((skill) => (
             <li key={skill.name}>
@@ -63,7 +66,7 @@ export function PrintResume() {
       </section>
 
       <section>
-        <h2>Projects</h2>
+        <h2>{t.projects}</h2>
         {projects.map((project) => (
           <div key={project.name} className="print-project">
             <strong>{project.name}</strong>
@@ -74,7 +77,7 @@ export function PrintResume() {
       </section>
 
       <section>
-        <h2>Education</h2>
+        <h2>{t.education}</h2>
         {education.map((item) => (
           <div key={item.school} className="print-job">
             <div className="print-job-head">
