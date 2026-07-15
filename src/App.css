@@ -183,12 +183,67 @@
   color: #9f927d;
 }
 
-.banner-actions {
-  display: flex;
-  flex-wrap: wrap;
+.print-fab {
+  position: fixed;
+  right: 20px;
+  bottom: 22px;
+  z-index: 50;
+  display: inline-flex;
   align-items: center;
-  gap: 10px 14px;
-  justify-content: flex-end;
+  gap: 8px;
+  height: 48px;
+  padding: 0 16px 0 14px;
+  border: 2px solid #f8f8f0;
+  border-radius: 999px;
+  background: #19c8b9;
+  color: #794f27;
+  font-family: Nunito, 'Noto Sans SC', sans-serif;
+  font-size: 14px;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  box-shadow: 0 5px 0 0 #bdaea0;
+  cursor: pointer;
+  transition:
+    transform 0.15s ease,
+    box-shadow 0.15s ease;
+}
+
+.print-fab:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 7px 0 0 #bdaea0;
+}
+
+.print-fab:active {
+  transform: translateY(2px);
+  box-shadow: 0 2px 0 0 #bdaea0;
+}
+
+.print-fab-icon {
+  font-size: 18px;
+  line-height: 1;
+}
+
+.print-fab-label {
+  line-height: 1;
+}
+
+@media (max-width: 640px) {
+  .print-fab {
+    right: 14px;
+    bottom: 16px;
+    height: 44px;
+    padding: 0 12px;
+  }
+
+  .print-fab-label {
+    display: none;
+  }
+
+  .print-fab {
+    width: 44px;
+    justify-content: center;
+    padding: 0;
+  }
 }
 
 .layout {

@@ -84,11 +84,8 @@ function Sidebar() {
         </div>
 
         <div className="hero-actions">
-          <Button type="primary" size="large" block onClick={printResume}>
-            Print / PDF
-          </Button>
           <Button
-            type="default"
+            type="primary"
             size="large"
             block
             onClick={() => window.open(profile.github, '_blank')}
@@ -289,55 +286,66 @@ function App() {
   ];
 
   return (
-    <Cursor>
-      <div className="page screen-only">
-        <div className="sky" aria-hidden>
-          <span className="cloud c1" />
-          <span className="cloud c2" />
-          <span className="cloud c3" />
-          <span className="orb o1" />
-          <span className="orb o2" />
-          <span className="orb o3" />
-        </div>
-
-        <div className="page-inner">
-          <header className="top-banner fade-in">
-            <div className="banner-mark">
-              <Icon name="icon-miles" size={28} bounce />
-              <span>Island Resume</span>
-            </div>
-            <div className="banner-actions">
-              <Button type="primary" size="small" onClick={printResume}>
-                Print / PDF
-              </Button>
-              <p className="banner-note">Built with animal-island-ui · Non-commercial</p>
-            </div>
-          </header>
-
-          <div className="layout">
-            <Sidebar />
-            <main className="main fade-in delay-1">
-              <div className="main-intro">
-                <div className="section-title">
-                  <Title color="app-teal" size="middle">
-                    Explorer log
-                  </Title>
-                </div>
-                <p className="main-intro-text">
-                  Peek around the island — work, skills, and little projects.
-                </p>
-              </div>
-              <div className="tabs-shell">
-                <Tabs items={tabs} defaultActiveKey="about" leafAnimation shadow />
-              </div>
-            </main>
+    <>
+      <Cursor>
+        <div className="page screen-only">
+          <div className="sky" aria-hidden>
+            <span className="cloud c1" />
+            <span className="cloud c2" />
+            <span className="cloud c3" />
+            <span className="orb o1" />
+            <span className="orb o2" />
+            <span className="orb o3" />
           </div>
-        </div>
 
-        <Footer type="sea" seamless />
-      </div>
+          <div className="page-inner">
+            <header className="top-banner fade-in">
+              <div className="banner-mark">
+                <Icon name="icon-miles" size={28} bounce />
+                <span>Island Resume</span>
+              </div>
+              <p className="banner-note">Built with animal-island-ui · Non-commercial</p>
+            </header>
+
+            <div className="layout">
+              <Sidebar />
+              <main className="main fade-in delay-1">
+                <div className="main-intro">
+                  <div className="section-title">
+                    <Title color="app-teal" size="middle">
+                      Explorer log
+                    </Title>
+                  </div>
+                  <p className="main-intro-text">
+                    Peek around the island — work, skills, and little projects.
+                  </p>
+                </div>
+                <div className="tabs-shell">
+                  <Tabs items={tabs} defaultActiveKey="about" leafAnimation shadow />
+                </div>
+              </main>
+            </div>
+          </div>
+
+          <Footer type="sea" seamless />
+
+          <button
+            type="button"
+            className="print-fab no-print"
+            onClick={printResume}
+            title="Print or save as PDF"
+            aria-label="Print resume"
+          >
+            <span className="print-fab-icon" aria-hidden>
+              🖨️
+            </span>
+            <span className="print-fab-label">Print</span>
+          </button>
+        </div>
+      </Cursor>
+      {/* Must stay outside Cursor — hiding .animal-cursor was blanking the print sheet */}
       <PrintResume />
-    </Cursor>
+    </>
   );
 }
 

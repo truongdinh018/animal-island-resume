@@ -3,7 +3,7 @@ import { profile, experiences, skills, projects, education } from './data/resume
 /** Clean A4-style resume — visible only when printing / Save as PDF. */
 export function PrintResume() {
   return (
-    <article className="print-resume" aria-hidden="true">
+    <article className="print-resume">
       <header className="print-header">
         <img
           className="print-avatar"

@@ -1,6 +1,11 @@
 /* Screen: hide print sheet */
 .print-resume {
-  display: none;
+  position: absolute;
+  left: -10000px;
+  top: 0;
+  width: 210mm;
+  visibility: hidden;
+  pointer-events: none;
 }
 
 @media print {
@@ -19,15 +24,20 @@
     overflow: visible !important;
   }
 
-  /* Hide interactive site chrome */
+  /* Hide interactive site chrome only — keep PrintResume (sibling of Cursor) */
   .screen-only,
   .sky,
   .top-banner,
-  .animal-cursor,
+  .print-fab,
+  .no-print,
   footer,
-  [class*='animal-footer'],
-  .no-print {
+  [class*='animal-footer'] {
     display: none !important;
+  }
+
+  .animal-cursor,
+  .animal-cursor--force {
+    display: contents !important;
   }
 
   .animal-cursor--force,
@@ -36,11 +46,15 @@
   }
 
   .print-resume {
+    position: static !important;
+    left: auto !important;
+    width: 100% !important;
+    max-width: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    visibility: visible !important;
+    pointer-events: auto !important;
     display: block !important;
-    width: 100%;
-    max-width: none;
-    margin: 0;
-    padding: 0;
     color: #222;
     font-family: 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif;
     font-size: 11pt;
