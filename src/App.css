@@ -1,6 +1,7 @@
 .page {
-  --ink: var(--page-ink, #794f27);
-  --ink-soft: var(--page-ink-soft, #725d42);
+  /* Content ink stays island-brown so text on light cards stays readable in both themes */
+  --ink: #794f27;
+  --ink-soft: #725d42;
   --sand: var(--page-sand, #f8f8f0);
   --parchment: rgb(247, 243, 223);
   --mint: #19c8b9;

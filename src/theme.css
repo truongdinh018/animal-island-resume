@@ -1,4 +1,4 @@
-/* Theme tokens — light is default island day; dark is cozy night shore */
+/* Theme tokens — light = island day; dark = night shore + parchment "islands" */
 
 :root,
 [data-theme='light'] {
@@ -14,21 +14,25 @@
   --pref-chip-bg: rgba(248, 248, 240, 0.95);
   --pref-chip-border: #c4b89e;
   --pref-chip-active: #19c8b9;
+  --chrome-ink: #794f27;
+  --chrome-muted: #9f927d;
 }
 
 [data-theme='dark'] {
   --page-ink: #f2e6c9;
   --page-ink-soft: #d4c7a8;
   --page-muted: #a89878;
-  --page-sand: #1c2430;
-  --page-main: rgba(34, 42, 50, 0.94);
-  --page-banner: rgba(28, 36, 44, 0.88);
-  --page-border: #5a6a72;
-  --page-shadow: rgba(0, 0, 0, 0.45);
-  --page-sky: linear-gradient(180deg, #0f1a28 0%, #1a2838 35%, #243228 70%, #2a3224 100%);
-  --pref-chip-bg: rgba(28, 36, 44, 0.95);
-  --pref-chip-border: #5a6a72;
+  --page-sand: #121820;
+  --page-main: rgba(28, 35, 44, 0.96);
+  --page-banner: rgba(22, 29, 38, 0.92);
+  --page-border: #4a5a66;
+  --page-shadow: rgba(0, 0, 0, 0.55);
+  --page-sky: linear-gradient(180deg, #0b1220 0%, #152032 40%, #1c2a24 75%, #222a20 100%);
+  --pref-chip-bg: rgba(22, 29, 38, 0.95);
+  --pref-chip-border: #4a5a66;
   --pref-chip-active: #3dd4c6;
+  --chrome-ink: #f2e6c9;
+  --chrome-muted: #a8b0b8;
 }
 
 html,
@@ -45,15 +49,24 @@ body {
 }
 
 [data-theme='dark'] .cloud {
-  background: rgba(180, 205, 230, 0.18);
+  background: rgba(170, 200, 230, 0.14);
 }
 
+[data-theme='dark'] .orb.o1 {
+  background: rgba(245, 210, 120, 0.35);
+}
+
+[data-theme='dark'] .orb.o2 {
+  background: rgba(61, 212, 198, 0.28);
+}
+
+/* Chrome: banner + main shell use night inks */
 [data-theme='dark'] .top-banner,
 [data-theme='dark'] .main {
   background: var(--page-main);
   border-color: var(--page-border);
   box-shadow: 0 8px 0 0 var(--page-shadow);
-  color: var(--page-ink-soft);
+  color: var(--chrome-ink);
 }
 
 [data-theme='dark'] .top-banner {
@@ -61,62 +74,96 @@ body {
   box-shadow: 0 3px 0 0 var(--page-shadow);
 }
 
-[data-theme='dark'] .banner-mark,
-[data-theme='dark'] .hero-name,
-[data-theme='dark'] .job-company,
-[data-theme='dark'] .eyebrow {
-  color: var(--page-ink);
+[data-theme='dark'] .banner-mark {
+  color: var(--chrome-ink);
 }
 
 [data-theme='dark'] .banner-note,
-[data-theme='dark'] .body-text.soft,
 [data-theme='dark'] .main-intro-text {
-  color: var(--page-muted);
-}
-
-[data-theme='dark'] .hero-title {
-  color: #7ee0d2;
-}
-
-[data-theme='dark'] .hero-summary,
-[data-theme='dark'] .body-text,
-[data-theme='dark'] .bullet-list {
-  color: var(--page-ink-soft);
+  color: var(--chrome-muted);
 }
 
 [data-theme='dark'] .main-intro {
-  border-bottom-color: rgba(90, 106, 114, 0.8);
+  border-bottom-color: rgba(74, 90, 102, 0.9);
+}
+
+/* Content cards keep parchment look — force BROWN text (never cream-on-cream) */
+[data-theme='dark'] .sidebar .hero-name,
+[data-theme='dark'] .sidebar .eyebrow,
+[data-theme='dark'] .sidebar .job-company,
+[data-theme='dark'] .main .body-text,
+[data-theme='dark'] .main .body-text.lead,
+[data-theme='dark'] .main .body-text.soft,
+[data-theme='dark'] .main .bullet-list,
+[data-theme='dark'] .main .job-company {
+  color: #5c4630 !important;
+}
+
+[data-theme='dark'] .sidebar .hero-summary {
+  color: #4a3a28 !important;
+}
+
+[data-theme='dark'] .sidebar .hero-title {
+  color: #0f6e64 !important;
+}
+
+[data-theme='dark'] .main .body-text.soft {
+  color: #7a6a52 !important;
+}
+
+/* Soft night cards: slightly dim library surfaces so they sit in the scene */
+[data-theme='dark'] .sidebar [class*='animal-card'],
+[data-theme='dark'] .main [class*='animal-card'] {
+  filter: saturate(0.92) brightness(0.96);
+}
+
+[data-theme='dark'] .sidebar [class*='animal-card']:hover,
+[data-theme='dark'] .main [class*='animal-card']:hover {
+  filter: saturate(0.98) brightness(1);
+}
+
+[data-theme='dark'] .main [class*='animal-tabs'] {
+  background: #243039;
+  border-color: #4a5a66;
+}
+
+[data-theme='dark'] .main [class*='tabList'] {
+  background: rgba(16, 22, 30, 0.65);
+  border-bottom-color: #4a5a66;
+}
+
+[data-theme='dark'] .main [class*='tabItem']:not([class*='active']) {
+  color: #e8dcc0;
+}
+
+[data-theme='dark'] .main [class*='tabContent'],
+[data-theme='dark'] .main [class*='tabContentInner'] {
+  color: #5c4630;
 }
 
 [data-theme='dark'] .print-fab {
   background: #3dd4c6;
-  color: #1c2430;
-  border-color: #1c2430;
-  box-shadow: 0 5px 0 0 #0a1018;
+  color: #121820;
+  border-color: #121820;
+  box-shadow: 0 5px 0 0 #060a10;
 }
 
 [data-theme='dark'] .print-fab:hover {
-  box-shadow: 0 7px 0 0 #0a1018;
+  box-shadow: 0 7px 0 0 #060a10;
 }
 
-/* Soften library parchment panels a bit at night */
-[data-theme='dark'] .main [class*='animal-pattern'],
-[data-theme='dark'] .main [class*='animal-card'] {
-  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.04);
+[data-theme='dark'] .avatar-wrap {
+  background: linear-gradient(160deg, #fff9e8, #d6f5ef);
+  border-color: #2eb8aa;
+  box-shadow:
+    0 5px 0 0 #3a4550,
+    0 14px 28px rgba(0, 0, 0, 0.35);
 }
 
-[data-theme='dark'] .main [class*='animal-tabs'] {
-  background: #2a333c;
-  border-color: #5a6a72;
-}
-
-[data-theme='dark'] .main [class*='tabList'] {
-  background: rgba(20, 28, 36, 0.55);
-  border-bottom-color: #5a6a72;
-}
-
-[data-theme='dark'] .main [class*='tabItem']:not([class*='active']) {
-  color: #e6d9b8;
+[data-theme='dark'] .status-pill {
+  background: #6fba2c;
+  border-color: #4e8c1c;
+  box-shadow: 0 2px 0 0 #2f5a10;
 }
 
 .prefs-bar {
@@ -155,6 +202,10 @@ body {
     transform 0.15s ease;
 }
 
+[data-theme='dark'] .pref-btn {
+  color: var(--chrome-muted);
+}
+
 .pref-btn:hover {
   transform: translateY(-1px);
 }
@@ -165,7 +216,7 @@ body {
 }
 
 [data-theme='dark'] .pref-btn.is-active {
-  color: #1c2430;
+  color: #121820;
 }
 
 .pref-btn-icon {
