@@ -1,5 +1,7 @@
 # Animal Island Resume
 
+**Live site:** [https://truongdinh018.github.io/animal-island-resume/](https://truongdinh018.github.io/animal-island-resume/)
+
 Personal resume site styled with [animal-island-ui](https://github.com/guokaigdg/animal-island-ui) (CC BY-NC 4.0 — non-commercial use only).
 
 ## Dev
@@ -18,26 +20,16 @@ Replace avatar: drop your photo at `public/avatar.jpg` (square works best).
 
 ## Deploy on GitHub Pages
 
-Yes — this repo is set up for GitHub Pages via Actions (`.github/workflows/deploy-pages.yml`).
+Site URL: https://truongdinh018.github.io/animal-island-resume/
 
-1. Push to GitHub (`animal-island-resume` on `main`).
-2. Repo → **Settings → Pages** → Source: **GitHub Actions**.
-3. After the workflow runs, site URL:
-   `https://<your-username>.github.io/animal-island-resume/`
-
-### Private vs public
-
-| Repo visibility | GitHub Pages (free account) |
-| --- | --- |
-| **Public** | Works |
-| **Private** | Needs GitHub Pro / Team (or make the site repo public) |
-
-Local Pages build check:
+Publish from the `gh-pages` branch (built locally):
 
 ```bash
 npm run build:pages
-npx serve dist
+npx gh-pages -d dist -b gh-pages
 ```
+
+Repo Settings → Pages → Source: **Deploy from a branch** → `gh-pages` / `/ (root)`.
 
 ## License note
 
